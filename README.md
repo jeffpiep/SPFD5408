@@ -71,7 +71,7 @@ Restart the IDE
 
 If you download any code that uses Adafruit Libraries, please verify it:
 
--- KEEP THE ORIGINAL ADAFRUIT PINS
+-- FORK: KEEP THE ORIGINAL ADAFRUIT PINS
 
 	#define YP A3  // must be an analog pin, use "An" notation!
 	#define XM A2  // must be an analog pin, use "An" notation!
@@ -123,7 +123,7 @@ If you download any code that uses Adafruit Libraries, please verify it:
     tft.begin(0x9341); // SDFP5408
 
 
--- ROTATION: This sets up the blank portion of the screen (menu bar) at the TOP    
+-- FORK: ROTATION: This sets up the blank portion of the screen (menu bar) at the TOP    
 —- tft.rotation: Need for Mega (else screen is showed mirrored) 
 
   tft.setRotation(0); // Need for the Mega, please changed for your choice of rotation initial

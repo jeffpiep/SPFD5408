@@ -1,4 +1,13 @@
 #SPFD5408 Library
+
+FORK:
+
+This great library provided by Joao Lopes works with the 2.4 shields I bought from China, 
+except the touchscreens are wired to work with the Adafruit pinouts. The X-axis is also flipped. 
+This fork contains those changes in the examples.
+
+ORIGINAL:
+
 	Author: Joao Lopes
 	Versions: 
 		0.9.0 - Beta 1: First public beta - 18/07/15
@@ -62,6 +71,14 @@ Restart the IDE
 
 If you download any code that uses Adafruit Libraries, please verify it:
 
+-- FORK: KEEP THE ORIGINAL ADAFRUIT PINS
+
+	#define YP A3  // must be an analog pin, use "An" notation!
+	#define XM A2  // must be an analog pin, use "An" notation!
+	#define YM 9   // can be a digital pin
+	#define XP 8   // can be a digital pin
+
+-- DO NOT MAKE THE CHANGE BELOW
 —-  Pinout XM XP, must be:
 
 	#define YP A1  // must be an analog pin, use "An" notation!
@@ -69,6 +86,8 @@ If you download any code that uses Adafruit Libraries, please verify it:
 	#define YM 7   // can be a digital pin
 	#define XP 6   // can be a digital pin
 
+	
+	
 	(please verify it, if only a blank screen or noise is showed or touch doesnt works)
 
 —- readID: comment the original blok:
@@ -103,6 +122,8 @@ If you download any code that uses Adafruit Libraries, please verify it:
 
     tft.begin(0x9341); // SDFP5408
 
+
+-- FORK: ROTATION: This sets up the blank portion of the screen (menu bar) at the TOP    
 —- tft.rotation: Need for Mega (else screen is showed mirrored) 
 
   tft.setRotation(0); // Need for the Mega, please changed for your choice of rotation initial

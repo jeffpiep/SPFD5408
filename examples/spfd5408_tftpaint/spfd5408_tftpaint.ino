@@ -49,10 +49,16 @@
 //   D6 connects to digital pin 39
 //   D7 connects to digital pin 40
 
-#define YP A1  // must be an analog pin, use "An" notation!
+// Revert to Adafruit values
+#define YP A3  // must be an analog pin, use "An" notation!
 #define XM A2  // must be an analog pin, use "An" notation!
-#define YM 7   // can be a digital pin
-#define XP 6   // can be a digital pin
+#define YM 9   // can be a digital pin
+#define XP 8   // can be a digital pin
+
+//#define YP A1  // must be an analog pin, use "An" notation!
+//#define XM A2  // must be an analog pin, use "An" notation!
+//#define YM 7   // can be a digital pin
+//#define XP 6   // can be a digital pin
 
 // Original values
 //#define TS_MINX 150
@@ -61,10 +67,10 @@
 //#define TS_MAXY 940
 
 // Calibrate values
-#define TS_MINX 125
-#define TS_MINY 85
-#define TS_MAXX 965
-#define TS_MAXY 905
+#define TS_MINX 200
+#define TS_MINY 120
+#define TS_MAXX 905
+#define TS_MAXY 830
 
 // For better pressure precision, we need to know the resistance
 // between X+ and X- Use any multimeter to read it
@@ -75,7 +81,6 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
 #define LCD_CD A2
 #define LCD_WR A1
 #define LCD_RD A0
-// optional
 #define LCD_RESET A4
 
 // Assign human-readable names to some common 16-bit color values:
@@ -215,7 +220,9 @@ void loop()
     // *** SPFD5408 change -- Begin
     // Bug in in original code
     //p.x = map(p.y, TS_MINY, TS_MAXY, 0, tft.height());
-    p.x = map(p.x, TS_MINX, TS_MAXX, 0, tft.width());
+    //p.x = map(p.x, TS_MINX, TS_MAXX, 0, tft.width());
+    // FORK: reverse x axis
+    p.x = map(p.x, TS_MINX, TS_MAXX, tft.width(), 0);
     // *** SPFD5408 change -- End
     p.y = map(p.y, TS_MINY, TS_MAXY, 0, tft.height());;
 

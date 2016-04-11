@@ -156,6 +156,11 @@ TSPoint TouchScreen::getPoint(void) {
      z = 0;
    }
 
+   // added 4/11/16
+   // return pins to outputs to share with TFT
+   pinMode(_xm, OUTPUT);
+   pinMode(_yp, OUTPUT);
+   
    //return TSPoint(x, y, z);
 
    // *** SPFD5408 change -- Begin

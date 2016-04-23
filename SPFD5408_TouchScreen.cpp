@@ -71,14 +71,19 @@ TSPoint TouchScreen::getPoint(void) {
 
   valid = 1;
 
+  
+  // THIS SECTION IS          X OUTPUT Y INPUT
   pinMode(_yp, INPUT);
   pinMode(_ym, INPUT);
   
-  *portOutputRegister(yp_port) &= ~yp_pin;
-  *portOutputRegister(ym_port) &= ~ym_pin;
+  /* 
+  following is not necessary because pinMode(INPUT) disables pull up resistors already: JRP 4/23/16
+  //*portOutputRegister(yp_port) &= ~yp_pin;
+  //*portOutputRegister(ym_port) &= ~ym_pin;
   //digitalWrite(_yp, LOW);
   //digitalWrite(_ym, LOW);
-   
+  */
+  
   pinMode(_xp, OUTPUT);
   pinMode(_xm, OUTPUT);
   //digitalWrite(_xp, HIGH);
@@ -97,15 +102,18 @@ TSPoint TouchScreen::getPoint(void) {
 #endif
    x = (1023-samples[NUMSAMPLES/2]);
 
+     // THIS SECTION IS          X INPUT Y OUTPUT
+     
    pinMode(_xp, INPUT);
    pinMode(_xm, INPUT);
-   *portOutputRegister(xp_port) &= ~xp_pin;
+   // setting to 0 should not be necessary
+   // *portOutputRegister(xp_port) &= ~xp_pin;
    //digitalWrite(_xp, LOW);
    
    pinMode(_yp, OUTPUT);
    *portOutputRegister(yp_port) |= yp_pin;
    //digitalWrite(_yp, HIGH);
-   pinMode(_ym, OUTPUT);
+   pinMode(_ym, OUTPUT); //does OUTPUT go to 0 by default?
   
    for (i=0; i<NUMSAMPLES; i++) {
      samples[i] = analogRead(_xm);
@@ -120,6 +128,7 @@ TSPoint TouchScreen::getPoint(void) {
 
    y = (1023-samples[NUMSAMPLES/2]);
 
+   // HERE SET TO     X+, Y- OUTPUT   X-, Y+  INPUT
    // Set X+ to ground
    pinMode(_xp, OUTPUT);
    *portOutputRegister(xp_port) &= ~xp_pin;
@@ -130,7 +139,8 @@ TSPoint TouchScreen::getPoint(void) {
    //digitalWrite(_ym, HIGH); 
   
    // Hi-Z X- and Y+
-   *portOutputRegister(yp_port) &= ~yp_pin;
+   // not neceesary to preset to 0
+   //*portOutputRegister(yp_port) &= ~yp_pin;
    //digitalWrite(_yp, LOW);
    pinMode(_yp, INPUT);
   
@@ -156,7 +166,7 @@ TSPoint TouchScreen::getPoint(void) {
      z = 0;
    }
 
-   // added 4/11/16
+   // added 4/11/16 JRP
    // return pins to outputs to share with TFT
    pinMode(_xm, OUTPUT);
    pinMode(_yp, OUTPUT);

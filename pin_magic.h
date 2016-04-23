@@ -50,6 +50,9 @@
 // Due port/pin : PC8 PC7 PC6 PC5 PC4 PC3 PC2 PC1 (one contiguous PORT. -ish…)
 
 // Modified for SPFD5408 by Joao Lopes to work with SPFD5408
+// jrp notes: the Digital Pin# for SPFD5408 must be different (line 36)
+// jrp notes: see below where uses ports EHG instead of BGH 
+// jpr notes:  confirmed by looking at pinout on back of unit
 
 // Pixel read operations require a minimum 400 nS delay from RD_ACTIVE
 // to polling the input pins.  At 16 MHz, one machine cycle is 62.5 nS.
